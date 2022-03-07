@@ -12,7 +12,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\DTO Layer\DTO Layer.csproj" />
+    <ProjectReference Include="..\Abstraction Layer\Abstraction Layer.csproj" />
   </ItemGroup>
 
 </Project>

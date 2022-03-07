@@ -1,10 +1,11 @@
-﻿using DTO_Layer;
+﻿using Abstraction_Layer;
+using DTO_Layer;
 using System.Data;
 using System.Data.SqlClient;
 
 namespace DAL_Layer
 {
-    public class EventDAL : BaseDAL
+    public class EventDAL : BaseDAL, IEventCollection, IEventCreation, IEventDAL
     {
         public EventDAL() : base("Data Source=DELL-XPS-15;Initial Catalog=Eeventify;Integrated Security=True")
         {
@@ -34,7 +35,7 @@ namespace DAL_Layer
                 MaxPeople = (int)dataTable.Rows[0]["MaxPeople"],
                 MinPeople = (int)dataTable.Rows[0]["MinPeople"],
                 StartEvent = (DateTime)dataTable.Rows[0]["StartEvent"],
-                HasStarted = (bool)dataTable.Rows[0]["HasStarted"]            
+                HasStarted = (bool)dataTable.Rows[0]["HasStarted"]
             };
         }
 
@@ -66,7 +67,7 @@ namespace DAL_Layer
         //    };
         //}
 
-        public bool AddUser(EventDTO eventDTO)
+        public bool AddEvent(EventDTO eventDTO)
         {
             string query = "INSERT INTO dbo.Event VALUES (@Title, @Description, @IsLocationBased, @Latitude, @Longitude, @HostId, @MaxPeople, @MinPeople, @StartEvent, @HasStarted)";
 
