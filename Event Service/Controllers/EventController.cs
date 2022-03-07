@@ -8,16 +8,13 @@ namespace Event_Service.Controllers
     [Route("[controller]")]
     public class EventController : Controller
     {
-        private readonly IEventCollection eventCollection;
-        private readonly IEventCreation eventCreation;
-
-
+        private IEventCollection eventCollection;
+        private IEventCreation eventCreation;
         public EventController(IEventCollection? _eventCollection = null, IEventCreation? _eventCreation = null)
         {
             eventCollection = _eventCollection;
             eventCreation = _eventCreation;
         }
-
 
         [HttpGet]
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(Event))]
