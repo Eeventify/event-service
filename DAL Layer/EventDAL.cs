@@ -7,7 +7,7 @@ namespace DAL_Layer
 {
     public class EventDAL : BaseDAL, IEventCollection, IEventCreation, IEventDAL
     {
-        public EventDAL() : base("Data Source=DELL-XPS-15;Initial Catalog=Eeventify;Integrated Security=True")
+        public EventDAL() : base("Data Source=DESKTOP-AM2TG3L;Initial Catalog=Eeventify;Integrated Security=True")
         {
         }
 
@@ -28,7 +28,7 @@ namespace DAL_Layer
             {
                 ID = (int)dataTable.Rows[0]["Id"],
                 Title = (string)dataTable.Rows[0]["Title"],
-                LocationBased = (bool)dataTable.Rows[0]["LocationBased"],
+                LocationBased = (bool)dataTable.Rows[0]["IsLocationBased"],
                 Latitude = (double)dataTable.Rows[0]["Latitude"],
                 Longitude = (double)dataTable.Rows[0]["Longitude"],
                 HostID = (int)dataTable.Rows[0]["HostID"],
