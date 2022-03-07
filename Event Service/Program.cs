@@ -4,7 +4,7 @@ using Abstraction_Layer;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-builder.Services.AddScoped<IEventDAL, EventDAL>();
+builder.Services.AddSingleton<IEventDAL, EventDAL>();
 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
