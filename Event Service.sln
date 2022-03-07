@@ -5,11 +5,13 @@ VisualStudioVersion = 17.1.32210.238
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Event Service", "Event Service\Event Service.csproj", "{230BFD3E-5701-4A05-8AD5-13B6FCCFA3ED}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DAL Layer", "DAL Layer\DAL Layer.csproj", "{186337FF-DE27-4387-8F61-4CC3B3222405}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DAL Layer", "DAL Layer\DAL Layer.csproj", "{186337FF-DE27-4387-8F61-4CC3B3222405}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DTO Layer", "DTO Layer\DTO Layer.csproj", "{9DFA767A-CD25-44DB-8B9E-C135A7C9838A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DTO Layer", "DTO Layer\DTO Layer.csproj", "{9DFA767A-CD25-44DB-8B9E-C135A7C9838A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Abstraction Layer", "Abstraction Layer\Abstraction Layer.csproj", "{7598DD53-3F73-4811-99F5-858FB887B01B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Abstraction Layer", "Abstraction Layer\Abstraction Layer.csproj", "{7598DD53-3F73-4811-99F5-858FB887B01B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EventTests", "EventTests\EventTests.csproj", "{172516F7-0B64-4F70-BC7E-5B04F81F8E35}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,6 +35,10 @@ Global
 		{7598DD53-3F73-4811-99F5-858FB887B01B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7598DD53-3F73-4811-99F5-858FB887B01B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7598DD53-3F73-4811-99F5-858FB887B01B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{172516F7-0B64-4F70-BC7E-5B04F81F8E35}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{172516F7-0B64-4F70-BC7E-5B04F81F8E35}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{172516F7-0B64-4F70-BC7E-5B04F81F8E35}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{172516F7-0B64-4F70-BC7E-5B04F81F8E35}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

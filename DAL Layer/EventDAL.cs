@@ -6,7 +6,7 @@ namespace DAL_Layer
 {
     public class EventDAL : BaseDAL
     {
-        public EventDAL() : base("Data Source = (localdb)\\MSSQLLocalDB; Initial Catalog = \"User Service Database\"; Integrated Security = True; Connect Timeout = 30; Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False")
+        public EventDAL() : base("Data Source=DELL-XPS-15;Initial Catalog=Eeventify;Integrated Security=True")
         {
         }
 
