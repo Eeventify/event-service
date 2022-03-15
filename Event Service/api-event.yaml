@@ -1,7 +1,8 @@
 openapi: 3.0.1
 info:
-  title: 'Event Service, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null'
-  version: '1.0'
+  title: Event API
+  description: An API used for event management
+  version: v1
 paths:
   /Event:
     get:
