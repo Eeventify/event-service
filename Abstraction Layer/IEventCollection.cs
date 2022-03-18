@@ -11,5 +11,6 @@ namespace Abstraction_Layer
     public interface IEventCollection
     {
         public EventDTO? GetEvent(int Id);
+        public List<EventDTO>? GetAllEvents();
     }
 }

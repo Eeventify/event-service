@@ -20,6 +20,7 @@ namespace DAL_Layer
             SqlCommand cmd = BaseDAL.CommandBuilder(query, idParameter);
             DataTable dataTable = base.RunQuery(cmd);
 
+
             if (dataTable.Rows.Count == 0)
             {
                 return null;
@@ -39,35 +40,68 @@ namespace DAL_Layer
             };
         }
 
-        //public EventDTO? GetUserByUsername(string username)
-        //{
-        //    string query = "SELECT * FROM dbo.Event WHERE Username=@Username";
+        public List<EventDTO> GetAllEvents()
+        {
+            List<EventDTO> events = new List<EventDTO>();
+            using (SqlConnection conn = new SqlConnection(this.ConnectionString))
+            {
+                using (SqlCommand query = new SqlCommand("select * from dbo.Event", conn))
+                {
+                    conn.Open();
+                    var reader = query.ExecuteReader();
 
-        //    SqlParameter idParameter = new("@Username", SqlDbType.VarChar, 50) { Value = username };
+                    while (reader.Read())
+                    {
+                        events.Add(new EventDTO
+                        {
+                            ID = reader.GetInt32(0),
+                            Title = reader.GetString(1),
+                            Description = reader.GetString(2),
+                            LocationBased = reader.GetBoolean(3),
+                            Latitude = reader.GetDouble(4),
+                            Longitude = reader.GetDouble(5),
+                            HostID = reader.GetInt32(6),
+                            MaxPeople = reader.GetInt32(7),
+                            MinPeople = reader.GetInt32(8),
+                            StartEvent = (DateTime)reader.GetDateTime(9),
+                            HasStarted = (bool)reader.GetBoolean(10)
+                        });
+                    }
+                    return events;
+                }
+            }                          
+        }
 
-        //    SqlCommand cmd = BaseDAL.CommandBuilder(query, idParameter);
-        //    DataTable dataTable = base.RunQuery(cmd);
 
-        //    if (dataTable.Rows.Count == 0)
-        //    {
-        //        return null;
-        //    }
-        //    return new EventDTO
-        //    {
-        //        ID = (int)dataTable.Rows[0]["Id"],
-        //        Title = (string)dataTable.Rows[0]["Title"],
-        //        LocationBased = (bool)dataTable.Rows[0]["LocationBased"],
-        //        Latitude = (double)dataTable.Rows[0]["Latitude"],
-        //        Longitude = (double)dataTable.Rows[0]["Longitude"],
-        //        HostID = (int)dataTable.Rows[0]["HostID"],
-        //        MaxPeople = (int)dataTable.Rows[0]["MaxPeople"],
-        //        MinPeople = (int)dataTable.Rows[0]["MinPeople"],
-        //        StartEvent = (DateTime)dataTable.Rows[0]["StartEvent"],
-        //        HasStarted = (int)dataTable.Rows[0]["HasStarted"]
-        //    };
-        //}
+    //public EventDTO? GetUserByUsername(string username)
+    //{
+    //    string query = "SELECT * FROM dbo.Event WHERE Username=@Username";
 
-        public bool AddEvent(EventDTO eventDTO)
+    //    SqlParameter idParameter = new("@Username", SqlDbType.VarChar, 50) { Value = username };
+
+    //    SqlCommand cmd = BaseDAL.CommandBuilder(query, idParameter);
+    //    DataTable dataTable = base.RunQuery(cmd);
+
+    //    if (dataTable.Rows.Count == 0)
+    //    {
+    //        return null;
+    //    }
+    //    return new EventDTO
+    //    {
+    //        ID = (int)dataTable.Rows[0]["Id"],
+    //        Title = (string)dataTable.Rows[0]["Title"],
+    //        LocationBased = (bool)dataTable.Rows[0]["LocationBased"],
+    //        Latitude = (double)dataTable.Rows[0]["Latitude"],
+    //        Longitude = (double)dataTable.Rows[0]["Longitude"],
+    //        HostID = (int)dataTable.Rows[0]["HostID"],
+    //        MaxPeople = (int)dataTable.Rows[0]["MaxPeople"],
+    //        MinPeople = (int)dataTable.Rows[0]["MinPeople"],
+    //        StartEvent = (DateTime)dataTable.Rows[0]["StartEvent"],
+    //        HasStarted = (int)dataTable.Rows[0]["HasStarted"]
+    //    };
+    //}
+
+    public bool AddEvent(EventDTO eventDTO)
         {
             string query = "INSERT INTO dbo.Event VALUES (@Title, @Description, @IsLocationBased, @Latitude, @Longitude, @HostId, @MaxPeople, @MinPeople, @StartEvent, @HasStarted)";
 

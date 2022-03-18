@@ -19,6 +19,7 @@ namespace Event_Service.Controllers
         [HttpGet]
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(Event))]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [Route("GetEventByID")]
         public IActionResult GetEvent(int Id)
         {
             EventDTO? eventDTO = eventCollection.GetEvent(Id);
@@ -28,6 +29,18 @@ namespace Event_Service.Controllers
                 return BadRequest("A Event with this ID does not exist");
             }
             return Ok(new Event(eventDTO));
+        }
+
+        [HttpGet]
+        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(List<Event>))]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [Route("GetAllEvents")]
+        public IActionResult GetAllEvents()
+        {
+            List<EventDTO>? Events = new List<EventDTO>();
+            Events = eventCollection.GetAllEvents();
+
+            return Ok(Events);
         }
 
         [HttpPost]
