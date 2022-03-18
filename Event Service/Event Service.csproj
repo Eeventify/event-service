@@ -9,9 +9,14 @@
     <DockerDefaultTargetOS>Windows</DockerDefaultTargetOS>
   </PropertyGroup>
 
+  <PropertyGroup>
+	<GenerateDocumentationFile>true</GenerateDocumentationFile>
+	<NoWarn>$(NoWarn);1591</NoWarn>
+  </PropertyGroup>
+
   <ItemGroup>
     <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.14.0" />
-    <PackageReference Include="Swashbuckle.AspNetCore" Version="6.2.3" />
+    <PackageReference Include="Swashbuckle.AspNetCore" Version="6.3.0" />
   </ItemGroup>
 
   <ItemGroup>
@@ -19,5 +24,10 @@
     <ProjectReference Include="..\DAL Layer\DAL Layer.csproj" />
     <ProjectReference Include="..\DTO Layer\DTO Layer.csproj" />
   </ItemGroup>
+
+  <Target Name="PostBuild" AfterTargets="PostBuildEvent">
+	<Exec Command="dotnet tool restore" />
+	<Exec Command="dotnet swagger tofile --yaml --output api-event.yaml &quot;$(OutputPath)$(AssemblyName).dll&quot; v1" />
+  </Target>
 
 </Project>
