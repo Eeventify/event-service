@@ -72,36 +72,47 @@ namespace DAL_Layer
             }                          
         }
 
+        public void DeleteEvent(int ID)
+        {
+            using (SqlConnection conn = new SqlConnection(this.ConnectionString))
+            {
+                SqlCommand query = new SqlCommand("DELETE FROM dbo.Event WHERE [ID] = @id", conn);
+                query.Parameters.AddWithValue("@id", ID);
+                conn.Open();
+                query.ExecuteNonQuery();
+            }
+        }
 
-    //public EventDTO? GetUserByUsername(string username)
-    //{
-    //    string query = "SELECT * FROM dbo.Event WHERE Username=@Username";
 
-    //    SqlParameter idParameter = new("@Username", SqlDbType.VarChar, 50) { Value = username };
+        //public EventDTO? GetUserByUsername(string username)
+        //{
+        //    string query = "SELECT * FROM dbo.Event WHERE Username=@Username";
 
-    //    SqlCommand cmd = BaseDAL.CommandBuilder(query, idParameter);
-    //    DataTable dataTable = base.RunQuery(cmd);
+        //    SqlParameter idParameter = new("@Username", SqlDbType.VarChar, 50) { Value = username };
 
-    //    if (dataTable.Rows.Count == 0)
-    //    {
-    //        return null;
-    //    }
-    //    return new EventDTO
-    //    {
-    //        ID = (int)dataTable.Rows[0]["Id"],
-    //        Title = (string)dataTable.Rows[0]["Title"],
-    //        LocationBased = (bool)dataTable.Rows[0]["LocationBased"],
-    //        Latitude = (double)dataTable.Rows[0]["Latitude"],
-    //        Longitude = (double)dataTable.Rows[0]["Longitude"],
-    //        HostID = (int)dataTable.Rows[0]["HostID"],
-    //        MaxPeople = (int)dataTable.Rows[0]["MaxPeople"],
-    //        MinPeople = (int)dataTable.Rows[0]["MinPeople"],
-    //        StartEvent = (DateTime)dataTable.Rows[0]["StartEvent"],
-    //        HasStarted = (int)dataTable.Rows[0]["HasStarted"]
-    //    };
-    //}
+        //    SqlCommand cmd = BaseDAL.CommandBuilder(query, idParameter);
+        //    DataTable dataTable = base.RunQuery(cmd);
 
-    public bool AddEvent(EventDTO eventDTO)
+        //    if (dataTable.Rows.Count == 0)
+        //    {
+        //        return null;
+        //    }
+        //    return new EventDTO
+        //    {
+        //        ID = (int)dataTable.Rows[0]["Id"],
+        //        Title = (string)dataTable.Rows[0]["Title"],
+        //        LocationBased = (bool)dataTable.Rows[0]["LocationBased"],
+        //        Latitude = (double)dataTable.Rows[0]["Latitude"],
+        //        Longitude = (double)dataTable.Rows[0]["Longitude"],
+        //        HostID = (int)dataTable.Rows[0]["HostID"],
+        //        MaxPeople = (int)dataTable.Rows[0]["MaxPeople"],
+        //        MinPeople = (int)dataTable.Rows[0]["MinPeople"],
+        //        StartEvent = (DateTime)dataTable.Rows[0]["StartEvent"],
+        //        HasStarted = (int)dataTable.Rows[0]["HasStarted"]
+        //    };
+        //}
+
+        public bool AddEvent(EventDTO eventDTO)
         {
             string query = "INSERT INTO dbo.Event VALUES (@Title, @Description, @IsLocationBased, @Latitude, @Longitude, @HostId, @MaxPeople, @MinPeople, @StartEvent, @HasStarted)";
 

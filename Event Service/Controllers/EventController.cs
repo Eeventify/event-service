@@ -43,6 +43,21 @@ namespace Event_Service.Controllers
             return Ok(Events);
         }
 
+        [HttpDelete]
+        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(void))]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [Route("DeleteEvent")]
+        public IActionResult DeleteEvent(int Id)
+        {
+            EventDTO? eventDTO = eventCollection.GetEvent(Id);
+            if (eventDTO == null)
+            {
+                return BadRequest("A Event with this ID does not exist");
+            }
+            eventCollection.DeleteEvent(Id);
+            return Ok();
+        }
+
         [HttpPost]
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(Event))]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]

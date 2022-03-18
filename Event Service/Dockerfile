@@ -18,8 +18,8 @@ RUN dotnet build "Event Service.csproj" -c Release -o /app/build
 
 FROM build AS publish
 RUN dotnet publish "Event Service.csproj" -c Release -o /app/publish
-
-FROM base AS final
 WORKDIR /app
 COPY --from=publish /app/publish .
+
+FROM base AS final
 ENTRYPOINT ["dotnet", "Event Service.dll"]
