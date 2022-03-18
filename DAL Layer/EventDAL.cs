@@ -7,7 +7,7 @@ namespace DAL_Layer
 {
     public class EventDAL : BaseDAL, IEventCollection, IEventCreation, IEventDAL
     {
-        public EventDAL() : base("Data Source=DESKTOP-AM2TG3L;Initial Catalog=Eeventify;Integrated Security=True")
+        public EventDAL() : base(@"Server=db;Database=Eeventify;User=sa;Password=R9QgoT#Pm8;")
         {
         }
 
