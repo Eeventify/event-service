@@ -25,7 +25,7 @@
     <ProjectReference Include="..\DTO Layer\DTO Layer.csproj" />
   </ItemGroup>
 
-  <Target Name="PostBuild" AfterTargets="PostBuildEvent">
+  <Target Name="PostBuild" AfterTargets="PostBuildEvent" Condition="'$(Configuration)' == 'Debug'">
 	<Exec Command="dotnet tool restore" />
   </Target>
 
