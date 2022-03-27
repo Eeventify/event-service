@@ -27,6 +27,7 @@
 
   <Target Name="PostBuild" AfterTargets="PostBuildEvent" Condition="'$(Configuration)' == 'Debug'">
 	<Exec Command="dotnet tool restore" />
+	<Exec Command="dotnet swagger tofile --yaml --output api-event.yaml &quot;$(OutputPath)$(AssemblyName).dll&quot; v1" />
   </Target>
 
 </Project>
