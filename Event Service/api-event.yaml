@@ -206,18 +206,22 @@ components:
         latitude:
           type: number
           format: double
+          nullable: true
         longitude:
           type: number
           format: double
+          nullable: true
         hostID:
           type: integer
           format: int32
         maxPeople:
           type: integer
           format: int32
+          nullable: true
         minPeople:
           type: integer
           format: int32
+          nullable: true
         startEvent:
           type: string
           format: date-time

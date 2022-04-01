@@ -2,6 +2,7 @@
 using DTO_Layer;
 using Microsoft.AspNetCore.Mvc;
 
+using EventContext = DAL_Layer.EventContext;
 namespace Event_Service.Controllers
 {
     [ApiController]
@@ -10,7 +11,7 @@ namespace Event_Service.Controllers
     {
         private IEventCollection eventCollection;
         private IEventCreation eventCreation;
-        public EventController(IEventCollection? _eventCollection = null, IEventCreation? _eventCreation = null)
+        public EventController(EventContext context, IEventCollection? _eventCollection = null, IEventCreation? _eventCreation = null)
         {
             eventCollection = _eventCollection;
             eventCreation = _eventCreation;
@@ -65,20 +66,19 @@ namespace Event_Service.Controllers
         public IActionResult AddEvent(string description,string title, bool locationbased, double latitude, double longitude, int hostid, int maxpeople, int minpeople, DateTime startevent, bool hasstarted)
         {
             bool state = eventCreation.AddEvent(new EventDTO() { 
-            Description = description,
-            //Interests = interests,
-            //Members = members,
-            Title = title,
-            LocationBased = locationbased,
-            Latitude = latitude,
-            Longitude = longitude,
-            HostID = hostid,
-            MaxPeople = maxpeople,
-            MinPeople = minpeople,
-            StartEvent = startevent,
-            HasStarted = hasstarted
+                Description = description,
+                //Interests = interests,
+                //Members = members,
+                Title = title,
+                LocationBased = locationbased,
+                Latitude = latitude,
+                Longitude = longitude,
+                HostID = hostid,
+                MaxPeople = maxpeople,
+                MinPeople = minpeople,
+                StartEvent = startevent,
+                HasStarted = hasstarted
             });
-            throw new NotImplementedException();
             if (state)
             {
                 return Ok();
