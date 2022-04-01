@@ -1,14 +1,24 @@
-using DAL_Layer;
 using Abstraction_Layer;
 using Microsoft.OpenApi.Models;
 using System.Reflection;
+using Microsoft.EntityFrameworkCore;
+
+using Microsoft.EntityFrameworkCore.Design;
+
+using DAL_Layer;
+using EventContext = DAL_Layer.EventContext;
+
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-builder.Services.AddScoped<IEventDAL, EventDAL>();
-builder.Services.AddScoped<IEventCollection, EventDAL>();
-builder.Services.AddScoped<IEventCreation, EventDAL>();
+builder.Services.AddScoped<IEventCollection, EventEFDAL>();
+builder.Services.AddScoped<IEventCreation, EventEFDAL>();
+
+builder.Services.AddDbContext<EventContext>(opt =>
+{
+    opt.UseSqlServer(builder.Configuration.GetConnectionString("EventContext"));
+});
 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
@@ -33,6 +43,12 @@ if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
     app.UseSwaggerUI();
+}
+
+using (IServiceScope serviceScope = app.Services.GetService<IServiceScopeFactory>().CreateScope())
+{
+    DbContext context = serviceScope.ServiceProvider.GetRequiredService<EventContext>();
+    context.Database.Migrate();
 }
 
 app.UseAuthorization();
