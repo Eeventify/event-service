@@ -55,6 +55,12 @@ namespace Event_Service.Controllers
             {
                 return BadRequest("A Event with this ID does not exist");
             }
+            if (minpeople > maxpeople)
+                return BadRequest("Maximum people must be more than minimum people");
+            if (maxpeople < 2)
+                return BadRequest("Maximum people must be more then 1");
+            if (minpeople < 2)
+                return BadRequest("Minimum people must be more then 1");
 
             if (latitude == null)
             {
@@ -107,6 +113,13 @@ namespace Event_Service.Controllers
         //List<int> interests, List<int> members, 
         public IActionResult AddEvent(string description,string title, bool locationbased, double latitude, double longitude, int hostid, int maxpeople, int minpeople, DateTime startevent, bool hasstarted)
         {
+            if (minpeople > maxpeople)
+                return BadRequest("Maximum people must be more than minimum people");
+            if (maxpeople < 2)
+                return BadRequest("Maximum people must be more then 1");
+            if (minpeople < 2)
+                return BadRequest("Minimum people must be more then 1");
+
             bool state = eventCreation.AddEvent(new EventDTO() { 
                 Description = description,
                 //Interests = interests,

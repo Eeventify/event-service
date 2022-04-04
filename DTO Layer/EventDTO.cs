@@ -9,6 +9,7 @@
 
             if (Members == null)
                 Members = new();
+
         }
 
         public int ID { get; set; }
