@@ -21,14 +21,14 @@ namespace DAL_Layer.Model
             ID = eventDTO.ID;
             Description = eventDTO.Description;            
             Title = eventDTO.Title;
-            LocationBased = eventDTO.LocationBased;
+            LocationBased = (bool)eventDTO.LocationBased;
             Latitude = eventDTO.Latitude;
             Longitude = eventDTO.Longitude;
             HostID = eventDTO.HostID;
             MaxPeople = eventDTO.MaxPeople;
             MinPeople = eventDTO.MinPeople;
             StartEvent = eventDTO.StartEvent;
-            HasStarted = eventDTO.HasStarted;
+            HasStarted = (bool)eventDTO.HasStarted;
 
             List<EventInterest> _eventInterests = new();
             foreach(int interest in eventDTO.Interests)

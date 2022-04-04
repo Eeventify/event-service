@@ -11,5 +11,6 @@ namespace Abstraction_Layer
     public interface IEventCreation
     {
         public bool AddEvent(EventDTO eventDTO);
+        public void UpdateEvent(EventDTO eventDTO);
     }
 }

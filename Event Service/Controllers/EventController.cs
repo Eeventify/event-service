@@ -18,7 +18,7 @@ namespace Event_Service.Controllers
         }
 
         [HttpGet]
-        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(Event))]
+        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(EventDTO))]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [Route("GetEventByID")]
         public IActionResult GetEvent(int Id)
@@ -29,11 +29,11 @@ namespace Event_Service.Controllers
             {
                 return BadRequest("A Event with this ID does not exist");
             }
-            return Ok(new Event(eventDTO));
+            return Ok(eventDTO);
         }
 
         [HttpGet]
-        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(List<Event>))]
+        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(List<EventDTO>))]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [Route("GetAllEvents")]
         public IActionResult GetAllEvents()
@@ -42,6 +42,48 @@ namespace Event_Service.Controllers
             Events = eventCollection.GetAllEvents();
 
             return Ok(Events);
+        }
+
+        [HttpPut]
+        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(List<EventDTO>))]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [Route("UpdateEvent")]
+        public IActionResult UpdateEvent(int id, string? title, string? description, bool? locationbased, double? latitude, double? longitude, int? maxpeople, int? minpeople, DateTime? startevent, bool? hasstarted)
+        {
+            EventDTO? eventDTO = eventCollection.GetEvent(id);
+            if (eventDTO == null)
+            {
+                return BadRequest("A Event with this ID does not exist");
+            }
+
+            if (latitude == null)
+            {
+                latitude = -1000;
+            }
+            if (longitude == null)
+            {
+                longitude = -1000;
+            }
+
+            eventCreation.UpdateEvent(new EventDTO()
+            {
+                ID = id,
+                Description = description ?? "",
+                //Interests = interests,
+                //Members = members,
+                Title = title ?? "",
+                LocationBased = locationbased,
+                Latitude = latitude,
+                Longitude = longitude,
+                HostID = -1,
+                MaxPeople = maxpeople,
+                MinPeople = minpeople,
+                StartEvent = startevent ?? default(DateTime),
+                HasStarted = hasstarted
+            });
+            
+
+            return Ok();
         }
 
         [HttpDelete]
@@ -60,7 +102,7 @@ namespace Event_Service.Controllers
         }
 
         [HttpPost]
-        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(Event))]
+        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(EventDTO))]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         //List<int> interests, List<int> members, 
         public IActionResult AddEvent(string description,string title, bool locationbased, double latitude, double longitude, int hostid, int maxpeople, int minpeople, DateTime startevent, bool hasstarted)

@@ -31,6 +31,53 @@ namespace DAL_Layer
             _context.SaveChanges();
         }
 
+        public void UpdateEvent(EventDTO NewEvent)
+        {
+            Event? OldEvent = _context.Events.FirstOrDefault(x => x.ID == NewEvent.ID);
+
+            if (OldEvent == null)
+                return;
+
+            //EventDTO OldEvent = GetEvent(NewEvent.ID);
+            if (NewEvent.Title != "")
+            {
+                OldEvent.Title = NewEvent.Title;
+            }
+            if (NewEvent.Description != "")
+            {
+                OldEvent.Description = NewEvent.Description;
+            }
+            if (NewEvent.LocationBased != null)
+            {
+                OldEvent.LocationBased = (bool)NewEvent.LocationBased;
+            }
+            if (NewEvent.Longitude != -1000)
+            {
+                OldEvent.Longitude = NewEvent.Longitude;  
+            }
+            if (NewEvent.Latitude != -1000)
+            {
+                OldEvent.Latitude = NewEvent.Latitude;
+            }
+            if (NewEvent.StartEvent != default(DateTime))
+            {
+                OldEvent.StartEvent = NewEvent.StartEvent;
+            }
+            if (NewEvent.HasStarted != null)
+            {
+                OldEvent.HasStarted = (bool)NewEvent.HasStarted;
+            }
+            if (NewEvent.MaxPeople != null)
+            {
+                OldEvent.MaxPeople = NewEvent.MaxPeople;
+            }
+            if (NewEvent.MinPeople != null)
+            {
+                OldEvent.MinPeople = NewEvent.MinPeople;
+            }
+            _context.SaveChanges();
+        }
+
         public List<EventDTO>? GetAllEvents()
         {
             List<Event> events = _context.Events.ToList<Event>();
