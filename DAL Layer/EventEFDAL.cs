@@ -77,7 +77,12 @@ namespace DAL_Layer
             }
             if (!OldEvent.AreInterestsEqual(NewEvent.Interests))
             {
-
+                HashSet<EventInterest> newList = new();
+                foreach (int i in NewEvent.Interests)
+                {
+                    newList.Add(new EventInterest(i, NewEvent.ID));
+                }
+                OldEvent.Interests = newList;
             }
             _context.SaveChanges();
         }

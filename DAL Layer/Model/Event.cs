@@ -99,11 +99,6 @@ namespace DAL_Layer.Model
             };
         }
 
-        public void AddInterest(int interestId)
-        {
-            Interests.Add(new EventInterest(interestId, ID));
-        }
-
         public bool AreInterestsEqual(HashSet<int> interestIds)
         {
             HashSet<EventInterest> test = new();
