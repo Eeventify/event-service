@@ -15,8 +15,8 @@
         public int ID { get; set; }
 
         public string? Description { get; set; }
-        public List<int> Interests { get; set; }
-        public List<int> Members { get; set; }
+        public HashSet<int> Interests { get; set; }
+        public HashSet<int> Members { get; set; }
         public string Title { get; set; }
         public bool? LocationBased { get; set; }
         public double? Latitude { get; set; }

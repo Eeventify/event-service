@@ -30,14 +30,14 @@ namespace DAL_Layer.Model
             StartEvent = eventDTO.StartEvent;
             HasStarted = (bool)eventDTO.HasStarted;
 
-            List<EventInterest> _eventInterests = new();
+            HashSet<EventInterest> _eventInterests = new();
             foreach(int interest in eventDTO.Interests)
             {
                 _eventInterests.Add(new EventInterest(interest, this.ID));
             }
             Interests = _eventInterests;
 
-            List<EventMember> _eventMembers = new();
+            HashSet<EventMember> _eventMembers = new();
             foreach (int member in eventDTO.Members)
             {
                 _eventMembers.Add(new EventMember(member, this.ID));
@@ -61,21 +61,21 @@ namespace DAL_Layer.Model
         public bool HasStarted { get; set; }
 
         // Foreign Keys
-        public List<EventInterest> Interests { get; set; }
-        public List<EventMember> Members { get; set; }
+        public HashSet<EventInterest> Interests { get; set; }
+        public HashSet<EventMember> Members { get; set; }
 
         // Navigational Properties
 
         // Methods
         public EventDTO ToDTO()
         {
-            List<int> _interests = new();
+            HashSet<int> _interests = new();
             foreach (EventInterest interest in Interests)
             {
                 _interests.Add(interest.InterestID);
             }
 
-            List<int> _members = new();
+            HashSet<int> _members = new();
             foreach (EventMember member in Members)
             {
                 _members.Add(member.MemberID);

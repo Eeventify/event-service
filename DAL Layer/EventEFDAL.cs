@@ -78,6 +78,12 @@ namespace DAL_Layer
             _context.SaveChanges();
         }
 
+        //als hier een lijst met alle huidige interests van het event wordt doorgestuurd kan hij hem in een keer updaten
+        public void UpdateInterests(HashSet<int> interestIds)
+        {
+
+        }
+
         public List<EventDTO>? GetAllEvents()
         {
             List<Event> events = _context.Events.ToList<Event>();
