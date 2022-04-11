@@ -75,7 +75,7 @@ namespace DAL_Layer
             {
                 OldEvent.MinPeople = NewEvent.MinPeople;
             }
-            if (!OldEvent.AreInterestsEqual(NewEvent.Interests))
+            if (NewEvent.Interests.Any() && !OldEvent.AreInterestsEqual(NewEvent.Interests))
             {
                 HashSet<EventInterest> newList = new();
                 foreach (int i in NewEvent.Interests)

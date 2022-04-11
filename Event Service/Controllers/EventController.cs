@@ -48,7 +48,7 @@ namespace Event_Service.Controllers
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(List<EventDTO>))]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [Route("UpdateEvent")]
-        public IActionResult UpdateEvent(int id, string? title, string? description, bool? locationbased, double? latitude, double? longitude, int? maxpeople, int? minpeople, DateTime? startevent, bool? hasstarted)
+        public IActionResult UpdateEvent(int id, string? title, string? description, bool? locationbased, double? latitude, double? longitude, int? maxpeople, int? minpeople, DateTime? startevent, bool? hasstarted, List<int>? interests)
         {
             EventDTO? eventDTO = eventCollection.GetEvent(id);
             if (eventDTO == null)
@@ -70,12 +70,16 @@ namespace Event_Service.Controllers
             {
                 longitude = -1000;
             }
+            if (interests == null)
+            {
+                interests = new List<int>();
+            }
 
             eventCreation.UpdateEvent(new EventDTO()
             {
                 ID = id,
                 Description = description ?? "",
-                //Interests = interests,
+                Interests = interests.ToHashSet(),
                 //Members = members,
                 Title = title ?? "",
                 LocationBased = locationbased,
@@ -111,7 +115,7 @@ namespace Event_Service.Controllers
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(EventDTO))]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         //List<int> interests, List<int> members, 
-        public IActionResult AddEvent(string description,string title, bool locationbased, double latitude, double longitude, int hostid, int maxpeople, int minpeople, DateTime startevent, bool hasstarted)
+        public IActionResult AddEvent(string description,string title, bool locationbased, double latitude, double longitude, int hostid, int maxpeople, int minpeople, DateTime startevent, bool hasstarted, List<int> interests)
         {
             if (minpeople > maxpeople)
                 return BadRequest("Maximum people must be more than minimum people");
@@ -119,10 +123,13 @@ namespace Event_Service.Controllers
                 return BadRequest("Maximum people must be more then 1");
             if (minpeople < 2)
                 return BadRequest("Minimum people must be more then 1");
+            if (interests.Count < 1)
+                return BadRequest("An event needs to be tagged with at least one interest");
 
             bool state = eventCreation.AddEvent(new EventDTO() { 
                 Description = description,
-                //Interests = interests,
+                //kan je een HashSet meegeven aan een endpoint?
+                Interests = interests.ToHashSet(),
                 //Members = members,
                 Title = title,
                 LocationBased = locationbased,
