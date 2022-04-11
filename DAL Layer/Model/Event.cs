@@ -98,5 +98,20 @@ namespace DAL_Layer.Model
                 HasStarted = HasStarted
             };
         }
+
+        public void AddInterest(int interestId)
+        {
+            Interests.Add(new EventInterest(interestId, ID));
+        }
+
+        public bool AreInterestsEqual(HashSet<int> interestIds)
+        {
+            HashSet<EventInterest> test = new();
+            foreach (int i in interestIds)
+            {
+                test.Add(new EventInterest(i, ID));
+            }
+            return test.Equals(Interests);
+        }
     }
 }
