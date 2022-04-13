@@ -101,12 +101,25 @@ namespace DAL_Layer
 
         public EventDTO? GetEvent(int Id)
         {
-            Event _event = _context.Events.FirstOrDefault(x => x.ID == Id);
+            Event? _event = _context.Events.FirstOrDefault(x => x.ID == Id);
 
             if (_event == null)
                 return null;
 
             return _event.ToDTO();
+        }
+
+        public List<EventDTO> GetEventsByInterest(int interestId)
+        {
+            List<int> eventIDs = _context.EventInterests
+                .Where(e => e.InterestID == interestId)
+                .Select(e => e.EventID).ToList();
+            List<EventDTO> eventDTOs = new();
+            foreach (int id in eventIDs)
+            {
+                eventDTOs.Add(GetEvent(id));
+            }
+            return eventDTOs;
         }
     }
 }
