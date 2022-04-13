@@ -54,6 +54,19 @@ namespace Event_Service.Controllers
             return Ok(Events);
         }
 
+        [HttpGet]
+        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(List<EventDTO>))]
+        [Route("GetEventsByInterests")]
+        public IActionResult GetEventsByInterests(List<int> interestIds)
+        {
+            HashSet<EventDTO> Events = new();
+            foreach (int id in interestIds)
+            {
+                Events.UnionWith(eventCollection.GetEventsByInterest(id));
+            }
+            return Ok(Events.ToList());
+        }
+
         [HttpPut]
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(List<EventDTO>))]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
