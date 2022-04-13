@@ -74,6 +74,78 @@ paths:
             text/json:
               schema:
                 $ref: '#/components/schemas/ProblemDetails'
+  /Event/GetEventsByInterest:
+    get:
+      tags:
+        - Event
+      parameters:
+        - name: interestId
+          in: query
+          schema:
+            type: integer
+            format: int32
+      responses:
+        '200':
+          description: Success
+          content:
+            text/plain:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/EventDTO'
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/EventDTO'
+            text/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/EventDTO'
+  /Event/GetEventsByInterests:
+    get:
+      tags:
+        - Event
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                type: integer
+                format: int32
+          text/json:
+            schema:
+              type: array
+              items:
+                type: integer
+                format: int32
+          application/*+json:
+            schema:
+              type: array
+              items:
+                type: integer
+                format: int32
+      responses:
+        '200':
+          description: Success
+          content:
+            text/plain:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/EventDTO'
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/EventDTO'
+            text/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/EventDTO'
   /Event/UpdateEvent:
     put:
       tags:
@@ -106,11 +178,6 @@ paths:
           schema:
             type: number
             format: double
-        - name: hostid
-          in: query
-          schema:
-            type: integer
-            format: int32
         - name: maxpeople
           in: query
           schema:
@@ -130,6 +197,26 @@ paths:
           in: query
           schema:
             type: boolean
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                type: integer
+                format: int32
+          text/json:
+            schema:
+              type: array
+              items:
+                type: integer
+                format: int32
+          application/*+json:
+            schema:
+              type: array
+              items:
+                type: integer
+                format: int32
       responses:
         '200':
           description: Success
@@ -237,6 +324,26 @@ paths:
           in: query
           schema:
             type: boolean
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                type: integer
+                format: int32
+          text/json:
+            schema:
+              type: array
+              items:
+                type: integer
+                format: int32
+          application/*+json:
+            schema:
+              type: array
+              items:
+                type: integer
+                format: int32
       responses:
         '200':
           description: Success
@@ -274,12 +381,14 @@ components:
           type: string
           nullable: true
         interests:
+          uniqueItems: true
           type: array
           items:
             type: integer
             format: int32
           nullable: true
         members:
+          uniqueItems: true
           type: array
           items:
             type: integer
