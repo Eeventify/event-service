@@ -44,11 +44,17 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
-
-using (IServiceScope serviceScope = app.Services.GetService<IServiceScopeFactory>().CreateScope())
+else
 {
-    DbContext context = serviceScope.ServiceProvider.GetRequiredService<EventContext>();
-    context.Database.Migrate();
+    try
+    {
+        using (IServiceScope serviceScope = app.Services.GetService<IServiceScopeFactory>().CreateScope())
+        {
+            DbContext context = serviceScope.ServiceProvider.GetRequiredService<EventContext>();
+            context.Database.Migrate();
+        }
+    }
+    catch { }
 }
 
 app.UseAuthorization();
