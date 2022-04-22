@@ -74,6 +74,52 @@ paths:
             text/json:
               schema:
                 $ref: '#/components/schemas/ProblemDetails'
+  /Event/GetEventByLocation:
+    get:
+      tags:
+        - Event
+      parameters:
+        - name: latitude
+          in: query
+          schema:
+            type: number
+            format: double
+        - name: longitude
+          in: query
+          schema:
+            type: number
+            format: double
+      responses:
+        '200':
+          description: Success
+          content:
+            text/plain:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/EventDTO'
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/EventDTO'
+            text/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/EventDTO'
+        '400':
+          description: Bad Request
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
   /Event/UpdateEvent:
     put:
       tags:
@@ -106,11 +152,6 @@ paths:
           schema:
             type: number
             format: double
-        - name: hostid
-          in: query
-          schema:
-            type: integer
-            format: int32
         - name: maxpeople
           in: query
           schema:
@@ -186,57 +227,21 @@ paths:
             text/json:
               schema:
                 $ref: '#/components/schemas/ProblemDetails'
-  /Event:
+  /Event/CreateEvent:
     post:
       tags:
         - Event
-      parameters:
-        - name: description
-          in: query
-          schema:
-            type: string
-        - name: title
-          in: query
-          schema:
-            type: string
-        - name: locationbased
-          in: query
-          schema:
-            type: boolean
-        - name: latitude
-          in: query
-          schema:
-            type: number
-            format: double
-        - name: longitude
-          in: query
-          schema:
-            type: number
-            format: double
-        - name: hostid
-          in: query
-          schema:
-            type: integer
-            format: int32
-        - name: maxpeople
-          in: query
-          schema:
-            type: integer
-            format: int32
-        - name: minpeople
-          in: query
-          schema:
-            type: integer
-            format: int32
-        - name: startevent
-          in: query
-          schema:
-            type: string
-            format: date-time
-        - name: hasstarted
-          in: query
-          schema:
-            type: boolean
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/EventDTO'
+          text/json:
+            schema:
+              $ref: '#/components/schemas/EventDTO'
+          application/*+json:
+            schema:
+              $ref: '#/components/schemas/EventDTO'
       responses:
         '200':
           description: Success

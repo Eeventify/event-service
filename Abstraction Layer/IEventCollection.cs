@@ -13,6 +13,6 @@ namespace Abstraction_Layer
         public EventDTO? GetEvent(int Id);
         public List<EventDTO>? GetAllEvents();
         public void DeleteEvent(int Id);
-
+        public List<EventDTO>? GetEventsLocation(double latitude, double longitude);
     }
 }

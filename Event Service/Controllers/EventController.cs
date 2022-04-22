@@ -44,6 +44,18 @@ namespace Event_Service.Controllers
             return Ok(Events);
         }
 
+        [HttpGet]
+        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(List<EventDTO>))]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [Route("GetEventByLocation")]
+        public IActionResult GetEventsByLocation(double latitude, double longitude)
+        {
+            List<EventDTO>? Events = new List<EventDTO>();
+            Events = eventCollection.GetEventsLocation(latitude, longitude);
+
+            return Ok(Events);
+        }
+
         [HttpPut]
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(List<EventDTO>))]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
@@ -110,30 +122,18 @@ namespace Event_Service.Controllers
         [HttpPost]
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(EventDTO))]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [Route("CreateEvent")]
         //List<int> interests, List<int> members, 
-        public IActionResult AddEvent(string description,string title, bool locationbased, double latitude, double longitude, int hostid, int maxpeople, int minpeople, DateTime startevent, bool hasstarted)
+        public IActionResult AddEvent(EventDTO _event)
         {
-            if (minpeople > maxpeople)
+            if (_event.MinPeople > _event.MaxPeople)
                 return BadRequest("Maximum people must be more than minimum people");
-            if (maxpeople < 2)
+            if (_event.MaxPeople < 2)
                 return BadRequest("Maximum people must be more then 1");
-            if (minpeople < 2)
+            if (_event.MinPeople < 2)
                 return BadRequest("Minimum people must be more then 1");
 
-            bool state = eventCreation.AddEvent(new EventDTO() { 
-                Description = description,
-                //Interests = interests,
-                //Members = members,
-                Title = title,
-                LocationBased = locationbased,
-                Latitude = latitude,
-                Longitude = longitude,
-                HostID = hostid,
-                MaxPeople = maxpeople,
-                MinPeople = minpeople,
-                StartEvent = startevent,
-                HasStarted = hasstarted
-            });
+            bool state = eventCreation.AddEvent(_event);
             if (state)
             {
                 return Ok();

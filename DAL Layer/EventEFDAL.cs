@@ -90,6 +90,20 @@ namespace DAL_Layer
             return eventDTOs;
         }
 
+        public List<EventDTO>? GetEventsLocation(double latitude, double longitude)
+        {
+            List<Event> events = _context.Events.ToList<Event>();
+            List<EventDTO> eventDTOs = new();
+            foreach (Event _event in events)
+            {
+                if (_event.LocationBased && (latitude - 25 < _event.Latitude && _event.Latitude < latitude + 25) && (longitude - 25 < _event.Longitude && _event.Longitude < longitude + 25))
+                {
+                    eventDTOs.Add(_event.ToDTO());
+                }
+            }
+            return eventDTOs;
+        }
+
         public EventDTO? GetEvent(int Id)
         {
             Event _event = _context.Events.FirstOrDefault(x => x.ID == Id);
