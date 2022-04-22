@@ -80,7 +80,7 @@ namespace DAL_Layer
 
         public List<EventDTO>? GetAllEvents()
         {
-            List<Event> events = _context.Events.ToList<Event>();
+            List<Event> events = _context.Events.Include(x => x.Members).Include(x => x.Interests).ToList<Event>();
 
             List<EventDTO> eventDTOs = new();
             foreach(Event _event in events)
@@ -92,7 +92,7 @@ namespace DAL_Layer
 
         public List<EventDTO>? GetEventsLocation(double latitude, double longitude)
         {
-            List<Event> events = _context.Events.ToList<Event>();
+            List<Event> events = _context.Events.Include(x => x.Members).Include(x => x.Interests).ToList<Event>();
             List<EventDTO> eventDTOs = new();
             foreach (Event _event in events)
             {
@@ -106,7 +106,7 @@ namespace DAL_Layer
 
         public EventDTO? GetEvent(int Id)
         {
-            Event _event = _context.Events.FirstOrDefault(x => x.ID == Id);
+            Event _event = _context.Events.Include(x => x.Members).Include(x => x.Interests).FirstOrDefault(x => x.ID == Id);
 
             if (_event == null)
                 return null;

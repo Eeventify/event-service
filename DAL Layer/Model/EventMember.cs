@@ -14,10 +14,10 @@ namespace DAL_Layer.Model
 
         }
 
-        public EventMember(int id, int eventID)
+        public EventMember(int memberID, int eventID)
         {
-            ID = id;
-            EventID = eventID;
+            MemberID = memberID;
+            EventID = eventID;  
         }
 
         // Primary Key
