@@ -157,7 +157,7 @@ namespace Event_Service.Controllers
                 return BadRequest("Maximum people must be more then 1");
             if (_event.MinPeople < 2)
                 return BadRequest("Minimum people must be more then 1");
-            if (interests.Count < 1)
+            if (_event.Interests.Count < 1)
                 return BadRequest("An event needs to be tagged with at least one interest");
 
             bool state = eventCreation.AddEvent(_event);
