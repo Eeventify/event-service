@@ -14,9 +14,9 @@ namespace DAL_Layer.Model
 
         }
 
-        public EventInterest(int id, int eventID)
+        public EventInterest(int interestID, int eventID)
         {
-            ID = id;
+            InterestID = interestID;
             EventID = eventID;
         }
 

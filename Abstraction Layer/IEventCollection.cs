@@ -14,5 +14,6 @@ namespace Abstraction_Layer
         public List<EventDTO>? GetAllEvents();
         public void DeleteEvent(int Id);
         public List<EventDTO> GetEventsByInterest(int interestId);
+        public List<EventDTO>? GetEventsLocation(double latitude, double longitude);
     }
 }
