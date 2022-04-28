@@ -67,6 +67,7 @@ namespace Event_Service.Controllers
             return Ok(Events.ToList());
         }
 
+        [HttpGet]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [Route("GetEventByLocation")]
         public IActionResult GetEventsByLocation(double latitude, double longitude)

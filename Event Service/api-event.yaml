@@ -74,21 +74,16 @@ paths:
             text/json:
               schema:
                 $ref: '#/components/schemas/ProblemDetails'
-  /Event/GetEventByLocation:
+  /Event/GetEventsByInterest:
     get:
       tags:
         - Event
       parameters:
-        - name: latitude
+        - name: interestId
           in: query
           schema:
-            type: number
-            format: double
-        - name: longitude
-          in: query
-          schema:
-            type: number
-            format: double
+            type: integer
+            format: int32
       responses:
         '200':
           description: Success
@@ -151,6 +146,22 @@ paths:
                 type: array
                 items:
                   $ref: '#/components/schemas/EventDTO'
+  /Event/GetEventByLocation:
+    get:
+      tags:
+        - Event
+      parameters:
+        - name: latitude
+          in: query
+          schema:
+            type: number
+            format: double
+        - name: longitude
+          in: query
+          schema:
+            type: number
+            format: double
+      responses:
         '400':
           description: Bad Request
           content:
@@ -294,73 +305,10 @@ paths:
     post:
       tags:
         - Event
-      parameters:
-        - name: description
-          in: query
-          schema:
-            type: string
-        - name: title
-          in: query
-          schema:
-            type: string
-        - name: locationbased
-          in: query
-          schema:
-            type: boolean
-        - name: latitude
-          in: query
-          schema:
-            type: number
-            format: double
-        - name: longitude
-          in: query
-          schema:
-            type: number
-            format: double
-        - name: hostid
-          in: query
-          schema:
-            type: integer
-            format: int32
-        - name: maxpeople
-          in: query
-          schema:
-            type: integer
-            format: int32
-        - name: minpeople
-          in: query
-          schema:
-            type: integer
-            format: int32
-        - name: startevent
-          in: query
-          schema:
-            type: string
-            format: date-time
-        - name: hasstarted
-          in: query
-          schema:
-            type: boolean
       requestBody:
         content:
           application/json:
             schema:
-              type: array
-              items:
-                type: integer
-                format: int32
-          text/json:
-            schema:
-              type: array
-              items:
-                type: integer
-                format: int32
-          application/*+json:
-            schema:
-              type: array
-              items:
-                type: integer
-                format: int32
               $ref: '#/components/schemas/EventDTO'
           text/json:
             schema:
