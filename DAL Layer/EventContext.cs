@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
-
 using DAL_Layer.Model;
+
 namespace DAL_Layer
 {
     public class EventContext: DbContext
