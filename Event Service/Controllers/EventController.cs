@@ -67,6 +67,9 @@ namespace Event_Service.Controllers
             return Ok(Events.ToList());
         }
 
+        /// <param name="latitude">Desired latitude in degrees</param>
+        /// <param name="longitude">Desired longitude in degrees</param>
+        /// <param name="radius">Radius included results in KM</param>
         [HttpGet]
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(List<EventDTO>))]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
