@@ -99,13 +99,23 @@ namespace DAL_Layer
             return eventDTOs;
         }
 
-        public List<EventDTO>? GetEventsLocation(double latitude, double longitude)
+        public List<EventDTO>? GetEventsLocation(double latitude, double longitude, double radius)
         {
             List<Event> events = _context.Events.Include(x => x.Members).Include(x => x.Interests).ToList<Event>();
             List<EventDTO> eventDTOs = new();
             foreach (Event _event in events)
             {
-                if (_event.LocationBased && (latitude - 25 < _event.Latitude && _event.Latitude < latitude + 25) && (longitude - 25 < _event.Longitude && _event.Longitude < longitude + 25))
+                if (!_event.LocationBased || _event.Latitude == null | _event.Longitude == null)
+                {
+                    continue;
+                }
+
+                double eventLat = _event.Latitude.Value;
+                double eventLon = _event.Longitude.Value;
+
+                double distance = GetDistanceFromLatLonInKm(latitude, longitude, eventLat, eventLon);
+
+                if (distance <= radius)
                 {
                     eventDTOs.Add(_event.ToDTO());
                 }
@@ -134,6 +144,26 @@ namespace DAL_Layer
                 eventDTOs.Add(GetEvent(id));
             }
             return eventDTOs;
+        }
+
+        private double GetDistanceFromLatLonInKm(double lat1, double lon1, double lat2, double lon2)
+        {
+            var R = 6371; // Radius of the earth in km
+            var dLat = Deg2Rad(lat2 - lat1);  // deg2rad below
+            var dLon = Deg2Rad(lon2 - lon1);
+            var a =
+              Math.Sin(dLat / 2) * Math.Sin(dLat / 2) +
+              Math.Cos(Deg2Rad(lat1)) * Math.Cos(Deg2Rad(lat2)) *
+              Math.Sin(dLon / 2) * Math.Sin(dLon / 2)
+              ;
+            var c = 2 * Math.Atan2(Math.Sqrt(a), Math.Sqrt(1 - a));
+            var d = R * c; // Distance in km
+            return d;
+        }
+
+        private double Deg2Rad(double deg)
+        {
+            return deg * (Math.PI / 180);
         }
     }
 }

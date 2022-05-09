@@ -67,13 +67,17 @@ namespace Event_Service.Controllers
             return Ok(Events.ToList());
         }
 
+        /// <param name="latitude">Desired latitude in degrees</param>
+        /// <param name="longitude">Desired longitude in degrees</param>
+        /// <param name="radius">Radius included results in KM</param>
         [HttpGet]
+        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(List<EventDTO>))]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [Route("GetEventByLocation")]
-        public IActionResult GetEventsByLocation(double latitude, double longitude)
+        public IActionResult GetEventsByLocation(double latitude, double longitude, double radius = 20)
         {
             List<EventDTO>? Events = new List<EventDTO>();
-            Events = eventCollection.GetEventsLocation(latitude, longitude);
+            Events = eventCollection.GetEventsLocation(latitude, longitude, radius);
 
             return Ok(Events);
         }
