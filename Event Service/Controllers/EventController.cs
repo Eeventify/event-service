@@ -68,12 +68,13 @@ namespace Event_Service.Controllers
         }
 
         [HttpGet]
+        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(List<EventDTO>))]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [Route("GetEventByLocation")]
-        public IActionResult GetEventsByLocation(double latitude, double longitude)
+        public IActionResult GetEventsByLocation(double latitude, double longitude, double radius = 20)
         {
             List<EventDTO>? Events = new List<EventDTO>();
-            Events = eventCollection.GetEventsLocation(latitude, longitude);
+            Events = eventCollection.GetEventsLocation(latitude, longitude, radius);
 
             return Ok(Events);
         }
