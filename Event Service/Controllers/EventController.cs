@@ -54,6 +54,7 @@ namespace Event_Service.Controllers
             return Ok(Events);
         }
 
+        /// <param name="ids">Ids for the interests example: ?ids=1,2,3 </param>
         [HttpGet]
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(List<EventDTO>))]
         [Route("GetEventsByInterests")]
