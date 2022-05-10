@@ -96,6 +96,10 @@ namespace DAL_Layer
             {
                 eventDTOs.Add(_event.ToDTO());
             }
+
+            // Reverse list, newest events first
+            eventDTOs.Reverse();
+
             return eventDTOs;
         }
 
@@ -120,6 +124,10 @@ namespace DAL_Layer
                     eventDTOs.Add(_event.ToDTO());
                 }
             }
+
+            // Reverse list, newest events first
+            eventDTOs.Reverse();
+
             return eventDTOs;
         }
 
@@ -143,6 +151,10 @@ namespace DAL_Layer
             {
                 eventDTOs.Add(GetEvent(id));
             }
+
+            // Reverse list, newest events first
+            eventDTOs.Reverse();
+
             return eventDTOs;
         }
 
