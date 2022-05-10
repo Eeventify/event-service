@@ -107,26 +107,11 @@ paths:
     get:
       tags:
         - Event
-      requestBody:
-        content:
-          application/json:
-            schema:
-              type: array
-              items:
-                type: integer
-                format: int32
-          text/json:
-            schema:
-              type: array
-              items:
-                type: integer
-                format: int32
-          application/*+json:
-            schema:
-              type: array
-              items:
-                type: integer
-                format: int32
+      parameters:
+        - name: ids
+          in: query
+          schema:
+            type: string
       responses:
         '200':
           description: Success
@@ -153,16 +138,19 @@ paths:
       parameters:
         - name: latitude
           in: query
+          description: Desired latitude in degrees
           schema:
             type: number
             format: double
         - name: longitude
           in: query
+          description: Desired longitude in degrees
           schema:
             type: number
             format: double
         - name: radius
           in: query
+          description: Radius included results in KM
           schema:
             type: number
             format: double

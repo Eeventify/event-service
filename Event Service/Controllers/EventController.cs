@@ -57,12 +57,13 @@ namespace Event_Service.Controllers
         [HttpGet]
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(List<EventDTO>))]
         [Route("GetEventsByInterests")]
-        public IActionResult GetEventsByInterests(List<int> interestIds)
+        public IActionResult GetEventsByInterests(string ids)
         {
+            var ListId = ids.Split(',');
             HashSet<EventDTO> Events = new();
-            foreach (int id in interestIds)
+            foreach (string id in ListId)
             {
-                Events.UnionWith(eventCollection.GetEventsByInterest(id));
+                Events.UnionWith(eventCollection.GetEventsByInterest(Convert.ToInt32(id)));
             }
             return Ok(Events.ToList());
         }
