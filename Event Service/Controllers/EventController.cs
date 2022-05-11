@@ -64,7 +64,12 @@ namespace Event_Service.Controllers
             HashSet<EventDTO> Events = new();
             foreach (string id in ListId)
             {
-                Events.UnionWith(eventCollection.GetEventsByInterest(Convert.ToInt32(id)));
+                List<EventDTO> _events = eventCollection.GetEventsByInterest(Convert.ToInt32(id));
+                foreach(EventDTO _event in _events)
+                {
+                    if (Events.FirstOrDefault(x => x.ID == _event.ID) == null)
+                        Events.Add(_event);
+                }
             }
             return Ok(Events.ToList());
         }
