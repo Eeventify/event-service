@@ -33,6 +33,36 @@ namespace Event_Service.Controllers
         }
 
         [HttpGet]
+        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(EventDTO))]
+        [Route("GetEvents")]
+        public IActionResult GetEvents(string IDs)
+        {
+            List<string> ids = IDs.Split(',').ToList();
+
+            List<EventDTO> _events = new();
+
+            foreach (string id in ids)
+            {
+                try
+                {
+                    int _id = Convert.ToInt32(id);
+
+                    EventDTO? eventDTO = eventCollection.GetEvent(_id);
+                    if (eventDTO == null)
+                        continue;
+
+                    _events.Add(eventDTO);
+                }
+                catch
+                {
+                    continue;
+                }
+            }
+            
+            return Ok(_events);
+        }
+
+        [HttpGet]
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(List<EventDTO>))]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [Route("GetAllEvents")]
