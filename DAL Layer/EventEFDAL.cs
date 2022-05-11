@@ -174,7 +174,7 @@ namespace DAL_Layer
 
         public bool UnattendEvent(int eventID, int userID)
         {
-            Event _event = _context.Events.FirstOrDefault(x => x.ID == eventID);
+            Event _event = _context.Events.Include(x => x.Members).FirstOrDefault(x => x.ID == eventID);
             if (_event == null)
                 return false;
 
