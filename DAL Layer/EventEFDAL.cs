@@ -6,7 +6,7 @@ using DAL_Layer.Model;
 
 namespace DAL_Layer
 {
-    public class EventEFDAL : IEventCollection, IEventCreation
+    public class EventEFDAL : IEventCollection, IEventCreation, IEventMembers
     {
         public readonly EventContext _context;
         public EventEFDAL(EventContext context)
@@ -156,6 +156,34 @@ namespace DAL_Layer
             eventDTOs.Reverse();
 
             return eventDTOs;
+        }
+
+        public bool AttendEvent(int eventID, int userID)
+        {
+            Event _event = _context.Events.FirstOrDefault(x => x.ID == eventID);
+
+            if (_event == null)
+                return false;
+
+            if (_event.Members.FirstOrDefault(x => x.MemberID == userID) != null)
+                return false;
+
+            _event.Members.Add(new EventMember(userID, _event.ID) );
+            return _context.SaveChanges() > 0;
+        }
+
+        public bool UnattendEvent(int eventID, int userID)
+        {
+            Event _event = _context.Events.FirstOrDefault(x => x.ID == eventID);
+            if (_event == null)
+                return false;
+
+            EventMember _member = _event.Members.FirstOrDefault(x => x.MemberID == userID);
+            if (_member == null)
+                return false;
+
+            _event.Members.Remove(_member);
+            return _context.SaveChanges() > 0;
         }
 
         private double GetDistanceFromLatLonInKm(double lat1, double lon1, double lat2, double lon2)

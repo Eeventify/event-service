@@ -14,6 +14,7 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 builder.Services.AddScoped<IEventCollection, EventEFDAL>();
 builder.Services.AddScoped<IEventCreation, EventEFDAL>();
+builder.Services.AddScoped<IEventMembers, EventEFDAL>();
 
 builder.Services.AddDbContext<EventContext>(opt =>
 {
