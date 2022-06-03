@@ -21,6 +21,18 @@ builder.Services.AddDbContext<EventContext>(opt =>
     opt.UseSqlServer(builder.Configuration.GetConnectionString("EventContext"));
 });
 
+// CORS Configuration
+builder.Services.AddCors(opt =>
+{
+    opt.AddDefaultPolicy(builder =>
+    {
+        builder
+            .AllowAnyOrigin()
+            .AllowAnyHeader()
+            .AllowAnyMethod();
+    });
+});
+
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
@@ -59,6 +71,8 @@ else
 }
 
 app.UseAuthorization();
+
+app.UseCors();
 
 app.MapControllers();
 
